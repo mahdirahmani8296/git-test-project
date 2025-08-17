@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم معاملاتی فارکس پیشرفته</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-success {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            border: none;
+            border-radius: 25px;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 25px;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .price-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            margin: 10px 0;
+        }
+        
+        .signal-buy {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            color: white;
+        }
+        
+        .signal-sell {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+        
+        .signal-neutral {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 10px 0;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+        }
+        
+        .profit-positive {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .profit-negative {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .price-display {
+                font-size: 1.5rem;
+            }
+            
+            .metric-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="main-container">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-chart-line"></i> سیستم معاملاتی فارکس پیشرفته</h1>
+                <p>استراتژی‌های پیشرفته با دقت بالا برای معاملات سودده</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="row">
+                <!-- Left Column - Trading Controls -->
+                <div class="col-lg-6">
+                    <!-- Trader Setup -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-user-plus"></i> تنظیمات معامله‌گر
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="traderId" class="form-label">شناسه معامله‌گر</label>
+                                    <input type="text" class="form-control" id="traderId" value="trader_001">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="initialBalance" class="form-label">سرمایه اولیه ($)</label>
+                                    <input type="number" class="form-control" id="initialBalance" value="10000">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mt-3" onclick="createTrader()">
+                                <i class="fas fa-plus"></i> ایجاد معامله‌گر
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Strategy Execution -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-cogs"></i> اجرای استراتژی
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="symbol" class="form-label">نماد</label>
+                                    <select class="form-control" id="symbol">
+                                        <option value="EURUSD=X">EUR/USD</option>
+                                        <option value="GBPUSD=X">GBP/USD</option>
+                                        <option value="USDJPY=X">USD/JPY</option>
+                                        <option value="AUDUSD=X">AUD/USD</option>
+                                        <option value="USDCAD=X">USD/CAD</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="interval" class="form-label">بازه زمانی</label>
+                                    <select class="form-control" id="interval">
+                                        <option value="1m">1 دقیقه</option>
+                                        <option value="5m">5 دقیقه</option>
+                                        <option value="15m">15 دقیقه</option>
+                                        <option value="1h" selected>1 ساعت</option>
+                                        <option value="1d">1 روز</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-success mt-3" onclick="runStrategy()">
+                                <i class="fas fa-play"></i> اجرای استراتژی
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Current Signal -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-signal"></i> سیگنال فعلی
+                        </div>
+                        <div class="card-body">
+                            <div id="signalDisplay" class="price-display signal-neutral">
+                                منتظر سیگنال...
+                            </div>
+                            <div id="signalDetails" class="mt-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Trade Execution -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-exchange-alt"></i> اجرای معامله
+                        </div>
+                        <div class="card-body">
+                            <div id="tradeControls" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="positionSize" class="form-label">اندازه پوزیشن</label>
+                                        <input type="number" class="form-control" id="positionSize" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="confidence" class="form-label">سطح اعتماد</label>
+                                        <input type="text" class="form-control" id="confidence" readonly>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success mt-3" onclick="executeTrade()">
+                                    <i class="fas fa-check"></i> اجرای معامله
+                                </button>
+                            </div>
+                            <div id="noSignal" class="text-center text-muted">
+                                ابتدا استراتژی را اجرا کنید
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Market Data & Performance -->
+                <div class="col-lg-6">
+                    <!-- Market Data -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-chart-bar"></i> داده‌های بازار
+                        </div>
+                        <div class="card-body">
+                            <div id="marketData">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="currentPrice">--</div>
+                                            <div class="metric-label">قیمت فعلی</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="priceChange">--</div>
+                                            <div class="metric-label">تغییر قیمت</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="rsiValue">--</div>
+                                            <div class="metric-label">RSI</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="volumeValue">--</div>
+                                            <div class="metric-label">حجم</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="updateMarketData()">
+                                <i class="fas fa-sync-alt"></i> به‌روزرسانی
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-trophy"></i> معیارهای عملکرد
+                        </div>
+                        <div class="card-body">
+                            <div id="performanceMetrics">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="totalTrades">0</div>
+                                            <div class="metric-label">کل معاملات</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="winRate">0%</div>
+                                            <div class="metric-label">نرخ موفقیت</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="totalProfit">$0</div>
+                                            <div class="metric-label">سود کل</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="metric-card">
+                                            <div class="metric-value" id="currentBalance">$10000</div>
+                                            <div class="metric-label">موجودی فعلی</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="getPerformance()">
+                                <i class="fas fa-chart-line"></i> به‌روزرسانی عملکرد
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Backtesting -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-history"></i> بک‌تستینگ
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="startDate" class="form-label">تاریخ شروع</label>
+                                    <input type="date" class="form-control" id="startDate" value="2023-01-01">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="endDate" class="form-label">تاریخ پایان</label>
+                                    <input type="date" class="form-control" id="endDate" value="2023-12-31">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mt-3" onclick="runBacktest()">
+                                <i class="fas fa-play"></i> اجرای بک‌تست
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">در حال بارگذاری...</span>
+                </div>
+                <p class="mt-3">در حال پردازش...</p>
+            </div>
+
+            <!-- Alerts -->
+            <div id="alerts"></div>
+
+            <!-- Results Table -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <i class="fas fa-table"></i> نتایج بک‌تست
+                </div>
+                <div class="card-body">
+                    <div id="backtestResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Socket.IO connection
+        const socket = io();
+        let currentTraderId = null;
+        let currentSignal = null;
+
+        // Socket event handlers
+        socket.on('connect', function() {
+            showAlert('متصل شدید', 'success');
+        });
+
+        socket.on('disconnect', function() {
+            showAlert('اتصال قطع شد', 'warning');
+        });
+
+        socket.on('market_update', function(data) {
+            updateMarketDisplay(data);
+        });
+
+        socket.on('status', function(data) {
+            showAlert(data.message, 'info');
+        });
+
+        // Utility functions
+        function showAlert(message, type) {
+            const alertsDiv = document.getElementById('alerts');
+            const alertId = 'alert-' + Date.now();
+            
+            const alertHtml = `
+                <div id="${alertId}" class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            
+            alertsDiv.innerHTML = alertHtml + alertsDiv.innerHTML;
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                const alert = document.getElementById(alertId);
+                if (alert) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // API functions
+        async function createTrader() {
+            const traderId = document.getElementById('traderId').value;
+            const initialBalance = parseFloat(document.getElementById('initialBalance').value);
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/create_trader', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        trader_id: traderId,
+                        initial_balance: initialBalance
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentTraderId = traderId;
+                    showAlert(result.message, 'success');
+                    updateBalance(initialBalance);
+                } else {
+                    showAlert(result.message, 'danger');
+                }
+            } catch (error) {
+                showAlert('خطا در ایجاد معامله‌گر', 'danger');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function runStrategy() {
+            if (!currentTraderId) {
+                showAlert('ابتدا معامله‌گر را ایجاد کنید', 'warning');
+                return;
+            }
+            
+            const symbol = document.getElementById('symbol').value;
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/run_strategy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        trader_id: currentTraderId,
+                        symbol: symbol
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentSignal = result.result;
+                    displaySignal(result.result);
+                    showAlert('استراتژی با موفقیت اجرا شد', 'success');
+                } else {
+                    showAlert(result.message, 'danger');
+                }
+            } catch (error) {
+                showAlert('خطا در اجرای استراتژی', 'danger');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displaySignal(signalData) {
+            const signalDisplay = document.getElementById('signalDisplay');
+            const signalDetails = document.getElementById('signalDetails');
+            const tradeControls = document.getElementById('tradeControls');
+            const noSignal = document.getElementById('noSignal');
+            
+            const signal = signalData.signal.signal;
+            const confidence = signalData.signal.confidence;
+            const reasons = signalData.signal.reasons;
+            const positionSize = signalData.position_size;
+            
+            // Update signal display
+            if (signal === 1) {
+                signalDisplay.className = 'price-display signal-buy';
+                signalDisplay.innerHTML = '<i class="fas fa-arrow-up"></i> سیگنال خرید';
+            } else if (signal === -1) {
+                signalDisplay.className = 'price-display signal-sell';
+                signalDisplay.innerHTML = '<i class="fas fa-arrow-down"></i> سیگنال فروش';
+            } else {
+                signalDisplay.className = 'price-display signal-neutral';
+                signalDisplay.innerHTML = '<i class="fas fa-minus"></i> بدون سیگنال';
+            }
+            
+            // Update signal details
+            signalDetails.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>سطح اعتماد:</strong> ${(confidence * 100).toFixed(1)}%
+                    </div>
+                    <div class="col-md-6">
+                        <strong>امتیاز:</strong> ${signalData.signal.score.toFixed(2)}
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <strong>دلایل:</strong><br>
+                    ${reasons.map(reason => `<span class="badge bg-primary me-1">${reason}</span>`).join('')}
+                </div>
+            `;
+            
+            // Show/hide trade controls
+            if (signal !== 0 && positionSize > 0) {
+                tradeControls.style.display = 'block';
+                noSignal.style.display = 'none';
+                
+                document.getElementById('positionSize').value = positionSize.toFixed(2);
+                document.getElementById('confidence').value = (confidence * 100).toFixed(1) + '%';
+            } else {
+                tradeControls.style.display = 'none';
+                noSignal.style.display = 'block';
+            }
+        }
+
+        async function executeTrade() {
+            if (!currentSignal) {
+                showAlert('ابتدا استراتژی را اجرا کنید', 'warning');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/execute_trade', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        trader_id: currentTraderId,
+                        symbol: currentSignal.symbol,
+                        signal: currentSignal.signal,
+                        position_size: currentSignal.position_size
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    updateBalance(result.current_balance);
+                    getPerformance();
+                } else {
+                    showAlert(result.message, 'danger');
+                }
+            } catch (error) {
+                showAlert('خطا در اجرای معامله', 'danger');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function updateMarketData() {
+            const symbol = document.getElementById('symbol').value;
+            
+            try {
+                const response = await fetch(`/api/get_market_data?symbol=${symbol}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    updateMarketDisplay(result.data);
+                } else {
+                    showAlert(result.message, 'warning');
+                }
+            } catch (error) {
+                showAlert('خطا در دریافت داده‌های بازار', 'danger');
+            }
+        }
+
+        function updateMarketDisplay(data) {
+            document.getElementById('currentPrice').textContent = data.price.toFixed(5);
+            document.getElementById('priceChange').textContent = data.change.toFixed(5);
+            document.getElementById('rsiValue').textContent = data.rsi ? data.rsi.toFixed(2) : '--';
+            document.getElementById('volumeValue').textContent = data.volume ? data.volume.toLocaleString() : '--';
+        }
+
+        async function getPerformance() {
+            if (!currentTraderId) {
+                showAlert('ابتدا معامله‌گر را ایجاد کنید', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/get_performance?trader_id=${currentTraderId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    updatePerformanceDisplay(result.metrics);
+                } else {
+                    showAlert(result.message, 'warning');
+                }
+            } catch (error) {
+                showAlert('خطا در دریافت معیارهای عملکرد', 'danger');
+            }
+        }
+
+        function updatePerformanceDisplay(metrics) {
+            document.getElementById('totalTrades').textContent = metrics.total_trades;
+            document.getElementById('winRate').textContent = (metrics.win_rate * 100).toFixed(1) + '%';
+            document.getElementById('totalProfit').textContent = '$' + metrics.total_profit.toFixed(2);
+            document.getElementById('currentBalance').textContent = '$' + metrics.current_balance.toFixed(2);
+            
+            // Add color coding for profit
+            const profitElement = document.getElementById('totalProfit');
+            if (metrics.total_profit > 0) {
+                profitElement.className = 'metric-value profit-positive';
+            } else if (metrics.total_profit < 0) {
+                profitElement.className = 'metric-value profit-negative';
+            }
+        }
+
+        async function runBacktest() {
+            const symbol = document.getElementById('symbol').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const initialBalance = parseFloat(document.getElementById('initialBalance').value);
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/run_backtest', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        symbol: symbol,
+                        start_date: startDate,
+                        end_date: endDate,
+                        initial_balance: initialBalance
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayBacktestResults(result.results);
+                    showAlert('بک‌تست با موفقیت انجام شد', 'success');
+                } else {
+                    showAlert(result.message, 'danger');
+                }
+            } catch (error) {
+                showAlert('خطا در اجرای بک‌تست', 'danger');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displayBacktestResults(results) {
+            const resultsDiv = document.getElementById('backtestResults');
+            
+            const html = `
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>معیار</th>
+                                <th>مقدار</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>تعداد کل معاملات</td>
+                                <td>${results.total_trades}</td>
+                            </tr>
+                            <tr>
+                                <td>معاملات سودده</td>
+                                <td>${results.winning_trades}</td>
+                            </tr>
+                            <tr>
+                                <td>نرخ موفقیت</td>
+                                <td>${(results.win_rate * 100).toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>سود کل</td>
+                                <td class="${results.total_profit > 0 ? 'profit-positive' : 'profit-negative'}">$${results.total_profit.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>سود متوسط</td>
+                                <td class="${results.average_profit > 0 ? 'profit-positive' : 'profit-negative'}">$${results.average_profit.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>بازده</td>
+                                <td class="${results.return_percentage > 0 ? 'profit-positive' : 'profit-negative'}">${results.return_percentage.toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>حداکثر افت</td>
+                                <td>${(results.max_drawdown * 100).toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Sharpe Ratio</td>
+                                <td>${results.sharpe_ratio.toFixed(3)}</td>
+                            </tr>
+                            <tr>
+                                <td>Profit Factor</td>
+                                <td>${results.profit_factor.toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            resultsDiv.innerHTML = html;
+        }
+
+        function updateBalance(balance) {
+            document.getElementById('currentBalance').textContent = '$' + balance.toFixed(2);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default dates
+            const today = new Date();
+            const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+            
+            document.getElementById('endDate').value = today.toISOString().split('T')[0];
+            document.getElementById('startDate').value = oneYearAgo.toISOString().split('T')[0];
+            
+            // Initial market data update
+            updateMarketData();
+        });
+    </script>
+</body>
+</html>
