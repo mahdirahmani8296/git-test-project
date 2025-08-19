@@ -12,9 +12,3 @@ python-telegram-bot>=20.0
 schedule>=1.2.0
 python-dotenv>=1.0.0
 psutil>=5.9.0
-logging>=0.4.9.6
-warnings
-datetime
-typing
-json
-time
