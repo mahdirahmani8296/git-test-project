@@ -1,0 +1,191 @@
+;; AI Expert Advisor Optimization Settings
+;; Use these ranges for Strategy Tester optimization
+;; تنظیمات بهینه‌سازی ربات معاملاتی هوشمند
+
+;=== GENERAL SETTINGS / تنظیمات عمومی ===
+LotSize=0.01||0.01||0.5||0.01||N
+UseAutoLots=true
+RiskPercent=1.0||0.5||5.0||0.5||Y
+MagicNumber=12345
+Slippage=3
+
+;=== AI STRATEGY SETTINGS / تنظیمات استراتژی هوشمند ===
+UseAILogic=true
+AIConfidenceThreshold=60||60||85||5||Y
+UsePriceAction=true
+UseVolumeAnalysis=true
+UseMultiTimeframe=true
+UseNeuralNetwork=true
+
+;=== INDICATOR SETTINGS / تنظیمات اندیکاتورها ===
+FastMA=8||8||15||1||Y
+SlowMA=21||21||30||1||Y
+SignalMA=7||7||12||1||Y
+RSI_Period=10||10||20||2||Y
+BB_Period=15||15||25||2||Y
+BB_Deviation=1.5||1.5||2.5||0.1||Y
+ADX_Period=10||10||20||2||Y
+ATR_Period=10||10||20||2||Y
+Stoch_K=3||3||8||1||Y
+Stoch_D=2||2||5||1||Y
+Stoch_Slowing=2||2||5||1||Y
+
+;=== ADVANCED INDICATORS / اندیکاتورهای پیشرفته ===
+CCI_Period=10||10||20||2||Y
+Williams_Period=10||10||20||2||Y
+Momentum_Period=10||10||20||2||Y
+
+;=== RISK MANAGEMENT / مدیریت ریسک ===
+UseDynamicSL=true
+UseDynamicTP=true
+ATR_SL_Multiplier=2.0||1.5||3.5||0.25||Y
+ATR_TP_Multiplier=3.0||2.0||5.0||0.5||Y
+MaxDailyLoss=3.0||2.0||8.0||1.0||Y
+MaxDailyProfit=10.0||8.0||20.0||2.0||Y
+UseTrailingStop=true
+TrailingStart=20||15||40||5||Y
+TrailingStep=5||5||15||2||Y
+UseBreakEven=true
+BreakEvenPoint=15||10||30||5||Y
+
+;=== ADVANCED FILTERS / فیلترهای پیشرفته ===
+UseNewsFilter=true
+UseSpreadFilter=true
+MaxSpread=10||5||30||5||Y
+UseVolatilityFilter=true
+MinVolatility=0.00003||0.00001||0.0001||0.00001||Y
+MaxVolatility=0.003||0.001||0.01||0.001||Y
+UseTimeFilter=true
+StartTime="08:00"
+EndTime="22:00"
+
+;=== MACHINE LEARNING SETTINGS / تنظیمات یادگیری ماشین ===
+UseMachineLearning=true
+MLHistoryBars=500||300||1500||100||Y
+MLTrainingPeriod=50||30||150||20||Y
+MLLearningRate=0.005||0.001||0.02||0.005||Y
+NeuralNetworkLayers=3
+NeuralNetworkNeurons=8||5||15||2||Y
+
+;=== OPTIMIZATION PRESETS / پیش‌تنظیمات بهینه‌سازی ===
+
+; Conservative Settings (محافظه‌کار)
+; RiskPercent = 1.0-2.0
+; AIConfidenceThreshold = 80-85
+; ATR_SL_Multiplier = 2.5-3.0
+; MaxDailyLoss = 2.0-3.0
+
+; Balanced Settings (متعادل)
+; RiskPercent = 2.0-3.0
+; AIConfidenceThreshold = 70-80
+; ATR_SL_Multiplier = 2.0-2.5
+; MaxDailyLoss = 3.0-5.0
+
+; Aggressive Settings (تهاجمی)
+; RiskPercent = 3.0-5.0
+; AIConfidenceThreshold = 60-70
+; ATR_SL_Multiplier = 1.5-2.0
+; MaxDailyLoss = 5.0-8.0
+
+;=== SYMBOL-SPECIFIC RECOMMENDATIONS / توصیه‌های مخصوص نماد ===
+
+; EURUSD:
+; FastMA = 12, SlowMA = 26, RSI_Period = 14
+; ATR_SL_Multiplier = 2.0, ATR_TP_Multiplier = 3.5
+; MaxSpread = 15
+
+; GBPUSD:
+; FastMA = 10, SlowMA = 24, RSI_Period = 16
+; ATR_SL_Multiplier = 2.5, ATR_TP_Multiplier = 4.0
+; MaxSpread = 20
+
+; USDJPY:
+; FastMA = 14, SlowMA = 28, RSI_Period = 12
+; ATR_SL_Multiplier = 2.0, ATR_TP_Multiplier = 3.0
+; MaxSpread = 12
+
+; USDCHF:
+; FastMA = 12, SlowMA = 26, RSI_Period = 14
+; ATR_SL_Multiplier = 2.5, ATR_TP_Multiplier = 4.0
+; MaxSpread = 18
+
+; EURJPY:
+; FastMA = 10, SlowMA = 22, RSI_Period = 16
+; ATR_SL_Multiplier = 3.0, ATR_TP_Multiplier = 4.5
+; MaxSpread = 25
+
+; GBPJPY:
+; FastMA = 8, SlowMA = 20, RSI_Period = 18
+; ATR_SL_Multiplier = 3.5, ATR_TP_Multiplier = 5.0
+; MaxSpread = 30
+
+;=== TIMEFRAME RECOMMENDATIONS / توصیه‌های تایم فریم ===
+
+; M15 (15 Minutes):
+; FastMA = 8, SlowMA = 20, TrailingStart = 15
+; More trades, smaller profits per trade
+
+; H1 (1 Hour):
+; FastMA = 12, SlowMA = 26, TrailingStart = 25
+; Balanced approach, recommended for most users
+
+; H4 (4 Hours):
+; FastMA = 15, SlowMA = 30, TrailingStart = 35
+; Fewer trades, larger profits per trade
+
+; D1 (Daily):
+; FastMA = 20, SlowMA = 40, TrailingStart = 50
+; Long-term positions, best for swing trading
+
+;=== MARKET CONDITIONS / شرایط بازار ===
+
+; Trending Markets (بازارهای روندار):
+; Increase ADX weight, reduce RSI sensitivity
+; ATR_SL_Multiplier = 2.0-2.5
+; AIConfidenceThreshold = 65-75
+
+; Ranging Markets (بازارهای محدوده‌ای):
+; Increase RSI and Stochastic weight
+; ATR_SL_Multiplier = 2.5-3.0
+; AIConfidenceThreshold = 75-85
+
+; High Volatility (نوسانات بالا):
+; ATR_SL_Multiplier = 3.0-3.5
+; TrailingStart = 30-40
+; MaxSpread = 25-35
+
+; Low Volatility (نوسانات پایین):
+; ATR_SL_Multiplier = 1.5-2.0
+; TrailingStart = 15-25
+; MaxSpread = 10-20
+
+;=== OPTIMIZATION TIPS / نکات بهینه‌سازی ===
+
+; 1. Start with slow optimization (genetic algorithm)
+; 2. Use at least 3 months of historical data
+; 3. Include different market conditions in backtest period
+; 4. Optimize key parameters first: Risk%, Confidence, ATR multipliers
+; 5. Test on different timeframes to find best fit
+; 6. Consider spread costs in your broker's environment
+; 7. Validate results with forward testing
+; 8. Re-optimize monthly or when market conditions change
+
+;=== EXPECTED RESULTS / نتایج مورد انتظار ===
+
+; Win Rate: 55-70% (target: >60%)
+; Profit Factor: 1.2-2.0 (target: >1.3)
+; Maximum Drawdown: 10-25% (keep <20%)
+; Average Trade Duration: 2-48 hours
+; Monthly Return: 5-25% (depends on risk level)
+
+;=== IMPORTANT NOTES / نکات مهم ===
+
+; - Always test on demo account first
+; - Start with conservative settings
+; - Monitor performance weekly
+; - Adjust parameters based on market changes
+; - Keep trading journal for improvements
+; - Use proper money management
+; - Never risk more than you can afford to lose
+
+; Good luck with your trading! / موفق باشید!
