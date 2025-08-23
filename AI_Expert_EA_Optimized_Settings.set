@@ -1,0 +1,330 @@
+; AI Ultra Advanced Expert EA - Optimized Settings
+; تنظیمات بهینه‌سازی شده برای EA فوق پیشرفته هوش مصنوعی
+; Copyright 2024, AI Trading Pro
+
+[Common]
+;=== AI Expert EA Core Settings ===
+LotSize=0.01
+AutoLotSize=true
+RiskPercent=1.0
+MagicNumber=2024
+Slippage=3
+EnableAI=true
+EnableMachineLearning=true
+
+;=== Multi-Strategy AI Analysis ===
+UseMultiStrategy=true
+UsePriceActionAI=true
+UsePatternRecognition=true
+UseSentimentAnalysis=true
+UseVolatilityAI=true
+UseCorrelationAI=true
+MaxOpenTrades=3
+MinConfidenceScore=85.0
+
+;=== Advanced Technical Indicators ===
+RSI_Period=14
+RSI_Overbought=75
+RSI_Oversold=25
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+EMA_Fast=8
+EMA_Slow=21
+EMA_Trend=50
+BB_Period=20
+BB_Deviation=2.2
+ATR_Period=14
+Stochastic_K=14
+Stochastic_D=3
+Stochastic_Slow=3
+WilliamsR_Period=14
+CCI_Period=20
+Ichimoku_Tenkan=9
+Ichimoku_Kijun=26
+Ichimoku_Senkou=52
+ADX_Period=14
+ParabolicSAR_Step=2
+ParabolicSAR_Max=20
+OBV_Period=14
+
+;=== AI Risk Management & Position Sizing ===
+UseAIRiskManagement=true
+UseATR_SL=true
+ATR_SL_Multiplier=2.0
+FixedSL=25
+RiskRewardRatio=2.5
+UseTrailingStop=true
+TrailingStart=15
+TrailingStep=8
+UseBreakEven=true
+BreakEvenPips=10
+UsePartialClose=true
+PartialClosePercent=50
+PartialCloseTarget=1.8
+
+;=== AI Profit Optimization ===
+UseAITakeProfit=true
+BaseTP=2.5
+VolatilityTP=1.8
+UseMarketStructure=true
+UseFibonacciTP=true
+UseSupportResistance=true
+UseIchimokuTP=true
+UseDynamicTP=true
+
+;=== AI Market Analysis Filters ===
+UseTimeFilter=true
+StartHour=2
+EndHour=22
+AvoidNews=true
+UseSpreadFilter=true
+MaxSpread=5
+UseVolatilityFilter=true
+MinVolatility=0.8
+UseVolumeFilter=true
+MinVolume=1.2
+UseTrendStrengthFilter=true
+MinTrendStrength=0.7
+
+;=== AI Machine Learning Settings ===
+ML_LookbackPeriod=100
+ML_PredictionPeriod=20
+ML_LearningRate=0.01
+ML_Epochs=1000
+ML_AdaptiveLearning=true
+ML_ConfidenceThreshold=0.8
+
+[Conservative]
+; Conservative Settings - Lower Risk, Lower Reward
+; تنظیمات محافظه‌کارانه - ریسک کمتر، پاداش کمتر
+RiskPercent=0.5
+MinConfidenceScore=90.0
+MaxOpenTrades=2
+ATR_SL_Multiplier=2.5
+RiskRewardRatio=3.0
+TrailingStart=20
+TrailingStep=10
+BreakEvenPips=15
+PartialCloseTarget=2.0
+BaseTP=3.0
+VolatilityTP=2.0
+MinVolatility=1.0
+MinTrendStrength=0.8
+
+[Aggressive]
+; Aggressive Settings - Higher Risk, Higher Reward
+; تنظیمات تهاجمی - ریسک بیشتر، پاداش بیشتر
+RiskPercent=2.0
+MinConfidenceScore=80.0
+MaxOpenTrades=5
+ATR_SL_Multiplier=1.5
+RiskRewardRatio=2.0
+TrailingStart=10
+TrailingStep=5
+BreakEvenPips=5
+PartialCloseTarget=1.5
+BaseTP=2.0
+VolatilityTP=1.5
+MinVolatility=0.6
+MinTrendStrength=0.6
+
+[Scalping]
+; Scalping Settings - Fast Entry/Exit
+; تنظیمات اسکالپینگ - ورود/خروج سریع
+RiskPercent=0.3
+MinConfidenceScore=95.0
+MaxOpenTrades=1
+ATR_SL_Multiplier=1.0
+RiskRewardRatio=1.5
+TrailingStart=5
+TrailingStep=2
+BreakEvenPips=3
+PartialCloseTarget=1.2
+BaseTP=1.5
+VolatilityTP=1.2
+MinVolatility=1.2
+MinTrendStrength=0.9
+UseTimeFilter=true
+StartHour=8
+EndHour=20
+
+[Trend_Following]
+; Trend Following Settings - Long-term Positions
+; تنظیمات دنبال‌کننده روند - پوزیشن‌های بلندمدت
+RiskPercent=1.5
+MinConfidenceScore=85.0
+MaxOpenTrades=2
+ATR_SL_Multiplier=3.0
+RiskRewardRatio=4.0
+TrailingStart=30
+TrailingStep=15
+BreakEvenPips=25
+PartialCloseTarget=2.5
+BaseTP=4.0
+VolatilityTP=2.5
+MinVolatility=0.8
+MinTrendStrength=0.7
+UseTimeFilter=false
+
+[News_Trading]
+; News Trading Settings - Avoid News Events
+; تنظیمات معاملات اخبار - اجتناب از رویدادهای خبری
+RiskPercent=0.8
+MinConfidenceScore=90.0
+MaxOpenTrades=2
+ATR_SL_Multiplier=2.5
+RiskRewardRatio=2.5
+TrailingStart=20
+TrailingStep=10
+BreakEvenPips=15
+PartialCloseTarget=1.8
+BaseTP=2.5
+VolatilityTP=2.0
+MinVolatility=1.0
+MinTrendStrength=0.8
+AvoidNews=true
+UseSpreadFilter=true
+MaxSpread=3
+
+[Volatility_Breakout]
+; Volatility Breakout Settings - High Volatility Markets
+; تنظیمات شکست نوسانات - بازارهای با نوسانات بالا
+RiskPercent=1.2
+MinConfidenceScore=80.0
+MaxOpenTrades=3
+ATR_SL_Multiplier=1.8
+RiskRewardRatio=2.0
+TrailingStart=12
+TrailingStep=6
+BreakEvenPips=8
+PartialCloseTarget=1.5
+BaseTP=2.0
+VolatilityTP=1.5
+MinVolatility=0.5
+MinTrendStrength=0.6
+UseVolatilityFilter=true
+MinVolatility=0.5
+
+[Range_Trading]
+; Range Trading Settings - Sideways Markets
+; تنظیمات معاملات رنج - بازارهای خنثی
+RiskPercent=0.7
+MinConfidenceScore=88.0
+MaxOpenTrades=2
+ATR_SL_Multiplier=2.2
+RiskRewardRatio=2.2
+TrailingStart=18
+TrailingStep=9
+BreakEvenPips=12
+PartialCloseTarget=1.6
+BaseTP=2.2
+VolatilityTP=1.8
+MinVolatility=0.7
+MinTrendStrength=0.75
+UseTrendStrengthFilter=true
+MinTrendStrength=0.75
+
+[High_Frequency]
+; High Frequency Trading Settings - Multiple Small Trades
+; تنظیمات معاملات فرکانس بالا - چندین معامله کوچک
+RiskPercent=0.4
+MinConfidenceScore=92.0
+MaxOpenTrades=8
+ATR_SL_Multiplier=1.2
+RiskRewardRatio=1.8
+TrailingStart=8
+TrailingStep=4
+BreakEvenPips=6
+PartialCloseTarget=1.3
+BaseTP=1.8
+VolatilityTP=1.4
+MinVolatility=0.8
+MinTrendStrength=0.7
+UseTimeFilter=true
+StartHour=6
+EndHour=18
+
+[Weekend_Gap]
+; Weekend Gap Trading Settings - Gap Trading Strategy
+; تنظیمات معاملات گپ آخر هفته - استراتژی معاملات گپ
+RiskPercent=1.0
+MinConfidenceScore=85.0
+MaxOpenTrades=2
+ATR_SL_Multiplier=2.0
+RiskRewardRatio=2.5
+TrailingStart=15
+TrailingStep=8
+BreakEvenPips=10
+PartialCloseTarget=1.8
+BaseTP=2.5
+VolatilityTP=1.8
+MinVolatility=0.8
+MinTrendStrength=0.7
+UseTimeFilter=true
+StartHour=0
+EndHour=24
+
+[Multi_Timeframe]
+; Multi-Timeframe Analysis Settings
+; تنظیمات تحلیل چندتایم‌فریمی
+RiskPercent=1.2
+MinConfidenceScore=87.0
+MaxOpenTrades=3
+ATR_SL_Multiplier=2.2
+RiskRewardRatio=2.8
+TrailingStart=20
+TrailingStep=10
+BreakEvenPips=15
+PartialCloseTarget=2.0
+BaseTP=2.8
+VolatilityTP=2.0
+MinVolatility=0.8
+MinTrendStrength=0.75
+UseMultiStrategy=true
+UseCorrelationAI=true
+
+[Risk_Management]
+; Enhanced Risk Management Settings
+; تنظیمات مدیریت ریسک پیشرفته
+RiskPercent=0.8
+MinConfidenceScore=90.0
+MaxOpenTrades=2
+ATR_SL_Multiplier=2.5
+RiskRewardRatio=3.0
+TrailingStart=25
+TrailingStep=12
+BreakEvenPips=20
+PartialCloseTarget=2.2
+BaseTP=3.0
+VolatilityTP=2.2
+MinVolatility=0.9
+MinTrendStrength=0.8
+UseAIRiskManagement=true
+MaxSpread=4
+
+[Performance_Optimized]
+; Performance Optimized Settings - Balanced Approach
+; تنظیمات بهینه‌سازی عملکرد - رویکرد متعادل
+RiskPercent=1.0
+MinConfidenceScore=85.0
+MaxOpenTrades=3
+ATR_SL_Multiplier=2.0
+RiskRewardRatio=2.5
+TrailingStart=15
+TrailingStep=8
+BreakEvenPips=10
+PartialCloseTarget=1.8
+BaseTP=2.5
+VolatilityTP=1.8
+MinVolatility=0.8
+MinTrendStrength=0.7
+UseMultiStrategy=true
+UsePriceActionAI=true
+UsePatternRecognition=true
+UseSentimentAnalysis=true
+UseVolatilityAI=true
+UseCorrelationAI=true
+EnableAI=true
+EnableMachineLearning=true
+ML_AdaptiveLearning=true
