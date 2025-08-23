@@ -1,0 +1,47 @@
+===============================================
+ADVANCED SCALPING EA - QUICK START GUIDE
+===============================================
+
+INSTALLATION STEPS:
+1. Copy AdvancedScalpingEA.mq4 to MT4/Experts folder
+2. Copy AdvancedScalpingEA.mq5 to MT5/Experts folder
+3. Restart MetaTrader
+4. Drag EA to chart
+5. Enable Live Trading (click "Allow live trading")
+
+RECOMMENDED SETTINGS:
+- Currency Pairs: EUR/USD, GBP/USD, USD/JPY
+- Timeframe: M1 or M5
+- Lot Size: 0.01 (or Auto)
+- Risk Percent: 1-2%
+- Max Spread: 3 pips
+- Trading Hours: 8-18 (London/NY sessions)
+
+SAFETY FEATURES:
+✓ Automatic Stop Loss & Take Profit
+✓ Maximum daily loss protection (-$100)
+✓ Spread filter (max 3 pips)
+✓ Time filter (avoid nights/weekends)
+✓ News avoidance filter
+✓ Maximum 3 trades simultaneously
+
+SCALPING STRATEGY:
+- Uses 6 technical indicators (RSI, MACD, EMA, Bollinger, ATR, Momentum)
+- Quick entries and exits (5+ pips profit)
+- Fast exit on RSI reversal
+- Trailing stop to maximize profits
+
+IMPORTANT WARNINGS:
+⚠️ Test on DEMO account first!
+⚠️ Use only small risk (1-2%)
+⚠️ Ensure low spread broker
+⚠️ Monitor during first day
+⚠️ Not financial advice
+
+TROUBLESHOOTING:
+- EA not working? Check "Allow live trading" is enabled
+- No trades opening? Check spread and trading hours
+- Compilation errors? Use MetaEditor F7
+
+Support: Read EA_Setup_Guide.md for detailed instructions
+===============================================
