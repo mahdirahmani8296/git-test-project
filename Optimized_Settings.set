@@ -1,0 +1,373 @@
+//+------------------------------------------------------------------+
+//| Advanced Trend Following EA - Optimized Settings               |
+//| Different parameter sets for various trading scenarios          |
+//+------------------------------------------------------------------+
+
+//=== CONSERVATIVE SETTINGS (Low Risk - Stable Returns) ===
+// Best for: New traders, small accounts, stable markets
+MagicNumber=12345
+AutoLotSize=true
+FixedLotSize=0.01
+RiskPercent=1.5
+MaxSpread=25
+UseNews=true
+
+// Trend Indicators - Conservative
+EMA_Fast=21
+EMA_Slow=50
+EMA_Filter=100
+RSI_Period=14
+RSI_Overbought=75
+RSI_Oversold=25
+
+// MACD Settings - Conservative
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+
+// Bollinger Bands - Conservative
+BB_Period=20
+BB_Deviation=2.0
+
+// ATR Settings - Conservative
+ATR_Period=14
+ATR_Multiplier=2.0
+
+// Risk Management - Conservative
+UseDynamicSL=true
+UseDynamicTP=true
+SL_ATR_Multiplier=3.0
+TP_ATR_Multiplier=5.0
+MinSL_Pips=20
+MaxSL_Pips=80
+UseTrailingStop=true
+TrailingStart=25
+TrailingStep=15
+
+// Advanced Filters - Conservative
+UseVolatilityFilter=true
+MinVolatility=0.0002
+MaxVolatility=0.003
+UseTimeFilter=true
+TradingStartTime="09:00"
+TradingEndTime="18:00"
+AvoidNews=true
+
+//=================================================================
+
+//=== AGGRESSIVE SETTINGS (High Risk - High Returns) ===
+// Best for: Experienced traders, larger accounts, trending markets
+MagicNumber=12346
+AutoLotSize=true
+FixedLotSize=0.01
+RiskPercent=3.0
+MaxSpread=35
+UseNews=false
+
+// Trend Indicators - Aggressive
+EMA_Fast=8
+EMA_Slow=21
+EMA_Filter=50
+RSI_Period=14
+RSI_Overbought=70
+RSI_Oversold=30
+
+// MACD Settings - Aggressive
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+
+// Bollinger Bands - Aggressive
+BB_Period=20
+BB_Deviation=2.0
+
+// ATR Settings - Aggressive
+ATR_Period=14
+ATR_Multiplier=2.0
+
+// Risk Management - Aggressive
+UseDynamicSL=true
+UseDynamicTP=true
+SL_ATR_Multiplier=2.0
+TP_ATR_Multiplier=3.5
+MinSL_Pips=15
+MaxSL_Pips=100
+UseTrailingStop=true
+TrailingStart=15
+TrailingStep=8
+
+// Advanced Filters - Aggressive
+UseVolatilityFilter=true
+MinVolatility=0.0001
+MaxVolatility=0.006
+UseTimeFilter=true
+TradingStartTime="07:00"
+TradingEndTime="21:00"
+AvoidNews=false
+
+//=================================================================
+
+//=== SCALPING SETTINGS (Short-term - Quick Profits) ===
+// Best for: M15/H1 timeframes, high-frequency trading
+MagicNumber=12347
+AutoLotSize=true
+FixedLotSize=0.01
+RiskPercent=2.0
+MaxSpread=20
+UseNews=true
+
+// Trend Indicators - Scalping
+EMA_Fast=5
+EMA_Slow=13
+EMA_Filter=21
+RSI_Period=14
+RSI_Overbought=65
+RSI_Oversold=35
+
+// MACD Settings - Scalping
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+
+// Bollinger Bands - Scalping
+BB_Period=20
+BB_Deviation=1.8
+
+// ATR Settings - Scalping
+ATR_Period=14
+ATR_Multiplier=2.0
+
+// Risk Management - Scalping
+UseDynamicSL=true
+UseDynamicTP=true
+SL_ATR_Multiplier=1.5
+TP_ATR_Multiplier=2.5
+MinSL_Pips=8
+MaxSL_Pips=30
+UseTrailingStop=true
+TrailingStart=10
+TrailingStep=5
+
+// Advanced Filters - Scalping
+UseVolatilityFilter=true
+MinVolatility=0.0001
+MaxVolatility=0.004
+UseTimeFilter=true
+TradingStartTime="08:00"
+TradingEndTime="17:00"
+AvoidNews=true
+
+//=================================================================
+
+//=== SWING TRADING SETTINGS (Medium-term - Trend Following) ===
+// Best for: H4/D1 timeframes, trend-following strategies
+MagicNumber=12348
+AutoLotSize=true
+FixedLotSize=0.01
+RiskPercent=2.5
+MaxSpread=40
+UseNews=false
+
+// Trend Indicators - Swing Trading
+EMA_Fast=12
+EMA_Slow=26
+EMA_Filter=50
+RSI_Period=14
+RSI_Overbought=70
+RSI_Oversold=30
+
+// MACD Settings - Swing Trading
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+
+// Bollinger Bands - Swing Trading
+BB_Period=20
+BB_Deviation=2.2
+
+// ATR Settings - Swing Trading
+ATR_Period=14
+ATR_Multiplier=2.0
+
+// Risk Management - Swing Trading
+UseDynamicSL=true
+UseDynamicTP=true
+SL_ATR_Multiplier=2.5
+TP_ATR_Multiplier=4.0
+MinSL_Pips=20
+MaxSL_Pips=150
+UseTrailingStop=true
+TrailingStart=30
+TrailingStep=15
+
+// Advanced Filters - Swing Trading
+UseVolatilityFilter=false
+MinVolatility=0.0001
+MaxVolatility=0.008
+UseTimeFilter=false
+TradingStartTime="00:00"
+TradingEndTime="23:59"
+AvoidNews=false
+
+//=================================================================
+
+//=== CURRENCY PAIR SPECIFIC SETTINGS ===
+
+//--- EURUSD Optimized ---
+// Best performance parameters for EURUSD
+EMA_Fast=12
+EMA_Slow=26
+EMA_Filter=50
+SL_ATR_Multiplier=2.3
+TP_ATR_Multiplier=3.8
+TrailingStart=18
+TrailingStep=10
+
+//--- GBPUSD Optimized ---
+// Best performance parameters for GBPUSD
+EMA_Fast=10
+EMA_Slow=24
+EMA_Filter=48
+SL_ATR_Multiplier=2.8
+TP_ATR_Multiplier=4.2
+TrailingStart=25
+TrailingStep=12
+
+//--- USDJPY Optimized ---
+// Best performance parameters for USDJPY
+EMA_Fast=14
+EMA_Slow=28
+EMA_Filter=52
+SL_ATR_Multiplier=2.2
+TP_ATR_Multiplier=3.5
+TrailingStart=20
+TrailingStep=8
+
+//--- EURJPY Optimized ---
+// Best performance parameters for EURJPY (High volatility pair)
+EMA_Fast=8
+EMA_Slow=21
+EMA_Filter=42
+SL_ATR_Multiplier=3.0
+TP_ATR_Multiplier=4.5
+TrailingStart=30
+TrailingStep=15
+
+//=================================================================
+
+//=== MARKET CONDITION SPECIFIC SETTINGS ===
+
+//--- TRENDING MARKET ---
+// Use when market shows strong directional movement
+EMA_Fast=8
+EMA_Slow=21
+RSI_Overbought=75
+RSI_Oversold=25
+SL_ATR_Multiplier=2.0
+TP_ATR_Multiplier=5.0
+UseTrailingStop=true
+
+//--- RANGING MARKET ---
+// Use when market is consolidating
+EMA_Fast=21
+EMA_Slow=50
+RSI_Overbought=65
+RSI_Oversold=35
+SL_ATR_Multiplier=3.0
+TP_ATR_Multiplier=2.5
+UseTrailingStop=false
+
+//--- HIGH VOLATILITY MARKET ---
+// Use during news events or high volatility periods
+MaxSpread=50
+SL_ATR_Multiplier=3.5
+TP_ATR_Multiplier=6.0
+MinSL_Pips=25
+MaxSL_Pips=200
+UseVolatilityFilter=true
+MaxVolatility=0.008
+
+//--- LOW VOLATILITY MARKET ---
+// Use during quiet market periods
+MaxSpread=15
+SL_ATR_Multiplier=1.8
+TP_ATR_Multiplier=2.8
+MinSL_Pips=10
+MaxSL_Pips=50
+UseVolatilityFilter=true
+MinVolatility=0.0002
+
+//=================================================================
+
+//=== ACCOUNT SIZE SPECIFIC SETTINGS ===
+
+//--- SMALL ACCOUNT (Under $1000) ---
+RiskPercent=1.0
+FixedLotSize=0.01
+MaxSpread=20
+UseTimeFilter=true
+AvoidNews=true
+
+//--- MEDIUM ACCOUNT ($1000 - $10000) ---
+RiskPercent=2.0
+AutoLotSize=true
+MaxSpread=30
+UseTimeFilter=true
+AvoidNews=false
+
+//--- LARGE ACCOUNT (Over $10000) ---
+RiskPercent=2.5
+AutoLotSize=true
+MaxSpread=40
+UseTimeFilter=false
+AvoidNews=false
+
+//=================================================================
+
+//=== TIMEFRAME SPECIFIC SETTINGS ===
+
+//--- M15 TIMEFRAME ---
+EMA_Fast=5
+EMA_Slow=13
+EMA_Filter=21
+TrailingStart=8
+TrailingStep=4
+UseTimeFilter=true
+
+//--- H1 TIMEFRAME ---
+EMA_Fast=8
+EMA_Slow=21
+EMA_Filter=50
+TrailingStart=15
+TrailingStep=8
+UseTimeFilter=true
+
+//--- H4 TIMEFRAME ---
+EMA_Fast=12
+EMA_Slow=26
+EMA_Filter=50
+TrailingStart=25
+TrailingStep=12
+UseTimeFilter=false
+
+//--- D1 TIMEFRAME ---
+EMA_Fast=21
+EMA_Slow=50
+EMA_Filter=100
+TrailingStart=40
+TrailingStep=20
+UseTimeFilter=false
+
+//=================================================================
+
+//=== NOTES FOR OPTIMIZATION ===
+/*
+1. Always backtest settings before live trading
+2. Optimize parameters for your specific broker and market conditions
+3. Consider transaction costs (spread, commission) in your optimization
+4. Monitor performance and adjust parameters as market conditions change
+5. Use forward testing to validate backtest results
+6. Consider using different settings for different sessions (Asian, European, US)
+7. Adjust risk parameters based on your risk tolerance and account size
+8. Keep detailed records of parameter changes and their impact on performance
+*/
