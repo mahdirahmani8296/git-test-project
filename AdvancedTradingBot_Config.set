@@ -1,0 +1,85 @@
+;+------------------------------------------------------------------+
+;|                         AdvancedTradingBot Configuration        |
+;|                           Optimal Settings Template             |
+;+------------------------------------------------------------------+
+
+; ========== General Settings ==========
+LotSize=0.01
+UseAutoLot=1
+RiskPercent=2.0
+MagicNumber=123456
+Slippage=3
+
+; ========== Indicator Settings ==========
+; Conservative Strategy (Lower Risk)
+FastMA=21
+SlowMA=50
+SignalMA=9
+RSI_Period=14
+RSI_Overbought=70
+RSI_Oversold=30
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+BB_Period=20
+BB_Deviation=2.0
+ATR_Period=14
+
+; ========== Risk Management ==========
+UseStopLoss=1
+UseTakeProfit=1
+StopLossMultiplier=2.0
+TakeProfitMultiplier=3.0
+UseTrailingStop=1
+TrailingStopDistance=50
+TrailingStepSize=10
+
+; ========== Time Filters ==========
+UseTimeFilter=1
+StartHour=8
+EndHour=22
+TradeMondayToFriday=1
+
+; ========== Symbol Optimization ==========
+TradeGold=1
+TradeMajorPairs=1
+GoldSymbol=XAUUSD
+GoldSpreadFilter=30
+
+;+------------------------------------------------------------------+
+;| Alternative Strategy Configurations                             |
+;+------------------------------------------------------------------+
+
+; AGGRESSIVE STRATEGY (Higher Risk/Reward)
+; FastMA=12
+; SlowMA=26
+; RSI_Overbought=75
+; RSI_Oversold=25
+; StopLossMultiplier=1.5
+; TakeProfitMultiplier=4.0
+; RiskPercent=3.0
+
+; CONSERVATIVE STRATEGY (Lower Risk)
+; FastMA=50
+; SlowMA=100
+; RSI_Overbought=65
+; RSI_Oversold=35
+; StopLossMultiplier=3.0
+; TakeProfitMultiplier=2.0
+; RiskPercent=1.0
+
+; SCALPING STRATEGY (Quick Trades)
+; FastMA=5
+; SlowMA=15
+; RSI_Period=8
+; StopLossMultiplier=1.0
+; TakeProfitMultiplier=1.5
+; TrailingStopDistance=20
+
+; SWING TRADING STRATEGY (Longer Holds)
+; FastMA=50
+; SlowMA=200
+; RSI_Period=21
+; StopLossMultiplier=3.0
+; TakeProfitMultiplier=6.0
+; TrailingStopDistance=100

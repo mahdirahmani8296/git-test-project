@@ -1,443 +1,295 @@
-# راهنمای نصب و استفاده از ربات معاملاتی هوشمند / AI Expert Advisor Installation Guide
+# Advanced Trading Bot - Installation & Setup Guide
 
-## فهرست / Table of Contents
+## 📋 Prerequisites
 
-### فارسی
-1. [مقدمه](#مقدمه)
-2. [ویژگی‌های کلیدی](#ویژگیهای-کلیدی)
-3. [نصب](#نصب)
-4. [تنظیمات](#تنظیمات)
-5. [استراتژی معاملاتی](#استراتژی-معاملاتی)
-6. [مدیریت ریسک](#مدیریت-ریسک)
-7. [بهینه‌سازی](#بهینهسازی)
+### System Requirements
+- MetaTrader 4 platform
+- Windows 7/8/10/11 or Windows Server
+- Minimum 4GB RAM
+- Stable internet connection
+- VPS recommended for 24/7 trading
 
-### English
-1. [Introduction](#introduction)
-2. [Key Features](#key-features)
-3. [Installation](#installation)
-4. [Settings](#settings)
-5. [Trading Strategy](#trading-strategy)
-6. [Risk Management](#risk-management)
-7. [Optimization](#optimization)
+### Account Requirements
+- MetaTrader 4 broker account
+- Minimum balance: $500 (recommended $1000+)
+- Spreads: Maximum 3-5 pips for major pairs
+- Execution: Market execution preferred
+- Allow Expert Advisors and Automated Trading enabled
 
----
+## 🚀 Installation Steps
 
-## مقدمه
-
-این ربات معاملاتی پیشرفته با استفاده از هوش مصنوعی و تکنیک‌های یادگیری ماشین طراحی شده است. ربات از ترکیب چندین اندیکاتور فنی، تحلیل price action، و الگوریتم‌های پیشرفته برای تولید سیگنال‌های معاملاتی با دقت بالا استفاده می‌کند.
-
-### ویژگی‌های کلیدی
-
-**🧠 هوش مصنوعی پیشرفته:**
-- شبکه عصبی با لایه‌های مخفی چندگانه
-- یادگیری تطبیقی بر اساس عملکرد
-- تحلیل رژیم بازار (trending/ranging)
-- ترکیب وزن‌دار اندیکاتورها
-
-**📊 اندیکاتورهای متنوع:**
-- MACD، RSI، Bollinger Bands
-- ADX، Stochastic، CCI
-- Williams %R، Momentum
-- ATR برای اندازه‌گیری نوسانات
-
-**💰 مدیریت ریسک هوشمند:**
-- محاسبه دینامیک سایز لات
-- Stop Loss و Take Profit خودکار
-- Trailing Stop و Break Even
-- محدودیت سود و ضرر روزانه
-
-**🔍 تحلیل‌های پیشرفته:**
-- تحلیل price action و الگوهای کندلی
-- تحلیل حجم معاملات
-- تحلیل چند تایم فریم
-- شناسایی سطوح حمایت و مقاومت
-
-**⚙️ تنظیمات قابل تنظیم:**
-- فیلتر اسپرد و نوسانات
-- فیلتر زمانی معاملات
-- فیلتر اخبار مهم
-- پارامترهای قابل بهینه‌سازی
-
----
-
-## نصب
-
-### 1. نصب در MT4
+### Step 1: Download Files
+Ensure you have the following files:
 ```
-1. فایل AI_Expert_Advisor.mq4 را در پوشه زیر کپی کنید:
-   MT4_Data_Folder/MQL4/Experts/
-
-2. MetaTrader 4 را مجدداً راه‌اندازی کنید
-
-3. از Navigator → Expert Advisors → AI_Expert_Advisor را بر روی چارت بکشید
-
-4. تنظیمات را بر اساس نیاز خود تغییر دهید
-
-5. "Allow live trading" را فعال کنید
+✅ AdvancedTradingBot.mq4      (Main Expert Advisor)
+✅ AdvancedTradingBot_Config.set  (Configuration Template)
+✅ README_Persian.md           (Persian Documentation)
+✅ Installation_Guide.md       (This File)
 ```
 
-### 2. نصب در MT5
+### Step 2: Copy Files to MetaTrader
+
+#### Method 1: Using File Explorer
+1. Open MetaTrader 4
+2. Go to `File → Open Data Folder`
+3. Navigate to `MQL4\Experts\`
+4. Copy `AdvancedTradingBot.mq4` here
+5. Navigate to `MQL4\Presets\`
+6. Copy `AdvancedTradingBot_Config.set` here
+7. Restart MetaTrader 4
+
+#### Method 2: Using MetaEditor
+1. Open MetaEditor (F4 in MT4)
+2. Go to `File → Open`
+3. Select `AdvancedTradingBot.mq4`
+4. Press `F7` or click Compile
+5. Check for compilation errors
+6. Close MetaEditor
+
+### Step 3: Verify Installation
+1. In MetaTrader Navigator panel
+2. Expand "Expert Advisors"
+3. Look for "AdvancedTradingBot"
+4. If not visible, refresh Navigator (F5)
+
+## ⚙️ Configuration
+
+### Step 1: Chart Setup
+1. Open desired chart (XAUUSD, EURUSD, etc.)
+2. Set timeframe (M15, H1, H4 recommended)
+3. Drag AdvancedTradingBot from Navigator to chart
+4. Configuration dialog will appear
+
+### Step 2: Essential Settings
+
+#### General Settings
 ```
-1. فایل AI_Expert_Advisor_MT5.mq5 را در پوشه زیر کپی کنید:
-   MT5_Data_Folder/MQL5/Experts/
-
-2. MetaTrader 5 را مجدداً راه‌اندازی کنید
-
-3. از Navigator → Expert Advisors → AI_Expert_Advisor_MT5 را بر روی چارت بکشید
-
-4. تنظیمات پیشرفته را تنظیم کنید
-
-5. "Allow algorithmic trading" را فعال کنید
-```
-
----
-
-## تنظیمات
-
-### تنظیمات اصلی / General Settings
-
-```cpp
-// سایز لات پایه
-LotSize = 0.1
-
-// استفاده از سایز لات خودکار (توصیه می‌شود)
-UseAutoLots = true
-
-// درصد ریسک هر معامله (1-5% توصیه می‌شود)
-RiskPercent = 2.0
-
-// شماره جادویی (برای تشخیص معاملات)
-MagicNumber = 12345
-
-// حداکثر لغزش قیمت
-Slippage = 3
-```
-
-### تنظیمات استراتژی / Strategy Settings
-
-```cpp
-// استفاده از منطق هوش مصنوعی
-UseAILogic = true
-
-// حد آستانه اطمینان سیگنال (60-85 توصیه می‌شود)
-AIConfidenceThreshold = 75
-
-// استفاده از تحلیل Price Action
-UsePriceAction = true
-
-// استفاده از تحلیل حجم
-UseVolumeAnalysis = true
-
-// تحلیل چند تایم فریم
-UseMultiTimeframe = true
-
-// استفاده از شبکه عصبی (MT5)
-UseNeuralNetwork = true
+✓ UseAutoLot = true
+✓ RiskPercent = 2.0 (start conservative)
+✓ MagicNumber = 123456 (unique for each chart)
+✓ Slippage = 3
 ```
 
-### تنظیمات مدیریت ریسک / Risk Management
-
-```cpp
-// استفاده از Stop Loss دینامیک
-UseDynamicSL = true
-
-// استفاده از Take Profit دینامیک  
-UseDynamicTP = true
-
-// ضریب ATR برای Stop Loss
-ATR_SL_Multiplier = 2.5
-
-// ضریب ATR برای Take Profit
-ATR_TP_Multiplier = 4.0
-
-// حداکثر ضرر روزانه (درصد)
-MaxDailyLoss = 5.0
-
-// حداکثر سود روزانه (درصد)
-MaxDailyProfit = 15.0
-
-// استفاده از Trailing Stop
-UseTrailingStop = true
-
-// نقطه شروع Trailing (پیپ)
-TrailingStart = 30
-
-// گام Trailing (پیپ)
-TrailingStep = 10
+#### Risk Management
+```
+✓ UseStopLoss = true
+✓ UseTakeProfit = true
+✓ StopLossMultiplier = 2.0
+✓ TakeProfitMultiplier = 3.0
+✓ UseTrailingStop = true
 ```
 
----
-
-## استراتژی معاملاتی
-
-### الگوریتم تصمیم‌گیری
-
-ربات از سیستم امتیازدهی پیشرفته‌ای استفاده می‌کند:
-
-**1. تحلیل اندیکاتورها (70% وزن):**
-- MACD: 20% وزن - سیگنال‌های تقاطع
-- RSI: 15% وزن - شرایط اشباع خرید/فروش
-- Bollinger Bands: 15% وزن - شکست سطوح
-- ADX: 10% وزن - قدرت ترند
-- Stochastic: 10% وزن - مومنتوم
-
-**2. تحلیل Price Action (20% وزن):**
-- الگوهای کندلی (Hammer، Doji، Engulfing)
-- سطوح حمایت و مقاومت
-- خطوط ترند
-- الگوهای چارتی
-
-**3. تحلیل حجم (10% وزن):**
-- تأیید حرکات قیمتی با حجم
-- شناسایی انحرافات حجمی
-
-### شرایط ورود به معامله
-
-**خرید (Buy):**
-- امتیاز صعودی > آستانه اطمینان
-- عدم وجود پوزیشن باز خرید
-- تأیید از فیلترهای بازار
-
-**فروش (Sell):**
-- امتیاز نزولی > آستانه اطمینان  
-- عدم وجود پوزیشن باز فروش
-- تأیید از فیلترهای بازار
-
----
-
-## مدیریت ریسک
-
-### محاسبه سایز لات خودکار
-
-```cpp
-سایز لات = (موجودی حساب × درصد ریسک) / (Stop Loss × ارزش تیک)
+#### Symbol Optimization
+```
+✓ TradeGold = true (for XAUUSD)
+✓ TradeMajorPairs = true (for forex)
+✓ GoldSpreadFilter = 30 (max spread for gold)
 ```
 
-### مدیریت پوزیشن
+### Step 3: Enable Trading
+1. Check "Allow live trading" ✅
+2. Check "Allow DLL imports" (if required) ✅
+3. Click "OK"
+4. Verify smiley face appears in top-right corner
 
-**Stop Loss دینامیک:**
-- بر اساس ATR محاسبه می‌شود
-- متناسب با نوسانات بازار تنظیم می‌شود
+## 🧪 Testing Protocol
 
-**Take Profit دینامیک:**
-- نسبت ریسک به پاداش 1:2 تا 1:4
-- بر اساس شرایط بازار تنظیم می‌شود
+### Phase 1: Demo Testing (1-2 weeks)
+1. **Demo Account Setup**
+   - Same broker as live account
+   - Similar balance to intended live trading
+   - Same server conditions
 
-**Trailing Stop:**
-- فعال می‌شود پس از رسیدن به سود مشخص
-- به‌طور پیوسته Stop Loss را به سمت سود جابجا می‌کند
+2. **Initial Parameters**
+   ```
+   RiskPercent = 1.0 (conservative start)
+   FastMA = 21
+   SlowMA = 50
+   StopLossMultiplier = 2.0
+   ```
 
-### محدودیت‌های روزانه
+3. **Monitoring Checklist**
+   - [ ] EA starts correctly
+   - [ ] Signals are generated
+   - [ ] Orders open and close properly
+   - [ ] Risk management works
+   - [ ] Logs show no errors
 
-- معاملات متوقف می‌شود در صورت رسیدن به حد سود/ضرر روزانه
-- محافظت از سرمایه در برابر شرایط نامناسب بازار
+### Phase 2: Optimization (1 week)
+1. **Strategy Tester Setup**
+   ```
+   Period: 3-6 months
+   Model: Every tick
+   Optimization: Genetic Algorithm
+   ```
 
----
+2. **Parameters to Optimize**
+   - RiskPercent: 1.0 to 3.0 (step 0.5)
+   - FastMA: 10 to 30 (step 2)
+   - SlowMA: 40 to 80 (step 5)
+   - StopLossMultiplier: 1.5 to 3.0 (step 0.5)
 
-## بهینه‌سازی
+3. **Target Metrics**
+   - Profit Factor > 1.5
+   - Win Rate > 55%
+   - Max Drawdown < 15%
+   - Total Trades > 50
 
-### پارامترهای کلیدی برای بهینه‌سازی
+### Phase 3: Live Testing (small size)
+1. **Start Small**
+   - RiskPercent = 0.5-1.0%
+   - Monitor for 1-2 weeks
+   - Verify demo results translate
 
-**1. تنظیمات اندیکاتور:**
-```cpp
-FastMA: 8-15 (پیشنهاد: 12)
-SlowMA: 21-30 (پیشنهاد: 26)
-RSI_Period: 10-20 (پیشنهاد: 14)
-BB_Period: 15-25 (پیشنهاد: 20)
-```
+2. **Scale Up Gradually**
+   - Increase risk by 0.5% weekly
+   - Maximum 3% per trade
+   - Monitor performance closely
 
-**2. مدیریت ریسک:**
-```cpp
-RiskPercent: 1-3% (محافظه‌کار), 3-5% (متعادل)
-ATR_SL_Multiplier: 2.0-3.0
-ATR_TP_Multiplier: 3.0-5.0
-AIConfidenceThreshold: 70-85
-```
+## 📊 Performance Monitoring
 
-**3. فیلترها:**
-```cpp
-MaxSpread: 10-30 پیپ (بسته به نماد)
-MinVolatility: 0.00005-0.0001
-MaxVolatility: 0.003-0.01
-```
+### Daily Checks
+- [ ] EA is running (smiley face visible)
+- [ ] No error messages in logs
+- [ ] Trades are within risk parameters
+- [ ] Account balance trending positively
 
-### نکات بهینه‌سازی
+### Weekly Reviews
+- [ ] Win rate analysis
+- [ ] Profit factor calculation
+- [ ] Drawdown assessment
+- [ ] Compare to demo results
 
-1. **تست بر روی داده‌های تاریخی:**
-   - حداقل 6 ماه داده تاریخی
-   - شامل شرایط مختلف بازار
+### Monthly Optimization
+- [ ] Parameter adjustment if needed
+- [ ] Market condition adaptation
+- [ ] Strategy performance review
+- [ ] Risk parameter update
 
-2. **تنظیم بر اساس نماد:**
-   - هر نماد نیاز به تنظیمات مخصوص دارد
-   - در نظر گیری ساعات فعال هر بازار
+## 🔧 Troubleshooting
 
-3. **مانیتورینگ مداوم:**
-   - بررسی عملکرد هفتگی
-   - تنظیم پارامترها در صورت نیاز
+### Common Issues and Solutions
 
----
+#### 1. EA Not Trading
+**Symptoms**: No trades opening despite signals
+**Solutions**:
+- Check AutoTrading is enabled (Ctrl+E)
+- Verify account has sufficient margin
+- Check spread filter settings
+- Ensure time filter allows trading
+- Verify symbol is in allowed list
 
-# English Version
+#### 2. Compilation Errors
+**Symptoms**: Red errors in MetaEditor
+**Solutions**:
+- Update MetaTrader to latest version
+- Check MQL4 syntax compatibility
+- Verify all required functions exist
+- Check for missing semicolons/brackets
 
-## Introduction
-
-This advanced trading Expert Advisor utilizes artificial intelligence and machine learning techniques to generate high-accuracy trading signals. The EA combines multiple technical indicators, price action analysis, and sophisticated algorithms for professional trading.
-
-## Key Features
-
-**🧠 Advanced AI:**
-- Multi-layer neural network
-- Adaptive learning based on performance
-- Market regime analysis (trending/ranging)
-- Weighted indicator combinations
-
-**📊 Comprehensive Indicators:**
-- MACD, RSI, Bollinger Bands
-- ADX, Stochastic, CCI
-- Williams %R, Momentum
-- ATR for volatility measurement
-
-**💰 Smart Risk Management:**
-- Dynamic lot size calculation
-- Automatic Stop Loss and Take Profit
-- Trailing Stop and Break Even
-- Daily profit/loss limits
-
-**🔍 Advanced Analysis:**
-- Price action and candlestick patterns
-- Volume analysis
-- Multi-timeframe analysis
-- Support/resistance level identification
-
-## Installation
-
-### For MT4:
-1. Copy `AI_Expert_Advisor.mq4` to: `MT4_Data_Folder/MQL4/Experts/`
-2. Restart MetaTrader 4
-3. Drag the EA from Navigator to chart
-4. Configure settings
-5. Enable "Allow live trading"
-
-### For MT5:
-1. Copy `AI_Expert_Advisor_MT5.mq5` to: `MT5_Data_Folder/MQL5/Experts/`
-2. Restart MetaTrader 5
-3. Drag the EA from Navigator to chart
-4. Configure advanced settings
-5. Enable "Allow algorithmic trading"
-
-## Settings
-
-### Recommended Settings for Different Account Sizes:
-
-**Small Account ($500-$2000):**
-```
-LotSize = 0.01
-RiskPercent = 1.5%
-AIConfidenceThreshold = 80
-MaxDailyLoss = 3%
-MaxDailyProfit = 8%
-```
-
-**Medium Account ($2000-$10000):**
-```
-LotSize = 0.1
-RiskPercent = 2.0%
-AIConfidenceThreshold = 75
-MaxDailyLoss = 4%
-MaxDailyProfit = 12%
-```
-
-**Large Account ($10000+):**
-```
-LotSize = 0.1
-RiskPercent = 2.5%
-AIConfidenceThreshold = 70
-MaxDailyLoss = 5%
-MaxDailyProfit = 15%
-```
-
-## Trading Strategy
-
-The EA uses a sophisticated scoring system:
-- **70% Technical Indicators:** MACD, RSI, BB, ADX, Stochastic
-- **20% Price Action:** Candlestick patterns, S/R levels
-- **10% Volume Analysis:** Volume confirmation
-
-### Entry Conditions:
-- Bullish/Bearish score > Confidence threshold
-- No existing position in same direction
-- Market filters passed
-
-## Risk Management
-
-### Position Sizing:
-```
-Lot Size = (Account Balance × Risk%) / (Stop Loss × Tick Value)
-```
-
-### Trade Management:
-- **Dynamic SL:** Based on ATR volatility
-- **Dynamic TP:** 2:1 to 4:1 risk-reward ratio
-- **Trailing Stop:** Protects profits
-- **Break Even:** Moves SL to entry price
-
-## Optimization Tips
-
-1. **Backtest thoroughly:** Minimum 6 months historical data
-2. **Symbol-specific settings:** Each pair needs unique parameters
-3. **Regular monitoring:** Weekly performance review
-4. **Market conditions:** Adjust for trending/ranging markets
-
-### Performance Metrics to Monitor:
-- Win rate (target: >60%)
-- Risk-reward ratio (target: >1.5)
-- Maximum drawdown (keep <20%)
-- Profit factor (target: >1.3)
-
----
-
-## 🔧 Technical Support
-
-### Common Issues:
-
-**EA not trading:**
-- Check "Allow live trading" is enabled
-- Verify market hours and spread conditions
-- Ensure minimum balance requirements
-
-**Poor performance:**
-- Lower confidence threshold
-- Adjust risk parameters
-- Check symbol-specific settings
-
-**High drawdown:**
+#### 3. Poor Performance
+**Symptoms**: Low win rate or profit factor
+**Solutions**:
+- Return to demo testing
 - Reduce risk percentage
-- Increase stop loss multiplier
-- Enable break even function
+- Optimize parameters for current market
+- Check spread costs impact
+- Consider different timeframe
 
-### Contact & Updates:
-- Regular updates will improve AI algorithms
-- Monitor news and market conditions
-- Consider fundamental analysis alongside technical
+#### 4. Unexpected Behavior
+**Symptoms**: Large losses or strange orders
+**Solutions**:
+- Immediately disable EA
+- Close all positions manually
+- Review logs for errors
+- Reset to default parameters
+- Test on demo again
+
+## 📈 Performance Expectations
+
+### Realistic Targets
+```
+Win Rate: 55-70%
+Profit Factor: 1.3-2.5
+Monthly Return: 3-12%
+Maximum Drawdown: 5-15%
+Average Trade Duration: 4-24 hours
+```
+
+### Market-Specific Performance
+
+#### Gold (XAUUSD)
+- Higher volatility = Higher profit potential
+- Wider spreads = Higher costs
+- News sensitivity = More false signals
+- Recommended: H1-H4 timeframes
+
+#### Major Forex Pairs
+- Lower volatility = More consistent results
+- Tighter spreads = Lower costs
+- More predictable patterns
+- Recommended: M15-H1 timeframes
+
+## 🛡️ Risk Management Rules
+
+### Position Sizing
+- Never risk more than 2-3% per trade
+- Maximum 5% total account exposure
+- Scale position size with account growth
+- Reduce size after significant losses
+
+### Diversification
+- Trade multiple symbols simultaneously
+- Use different parameter sets for different markets
+- Don't put all trades in correlated pairs
+- Consider time diversification
+
+### Stop Loss Management
+- Always use stop losses
+- Never move SL against position
+- Allow trailing stops to work
+- Don't interfere with EA decisions
+
+## 📞 Support Information
+
+### Before Contacting Support
+1. Check this guide thoroughly
+2. Review error logs in MetaTrader
+3. Test on demo account
+4. Document specific issues with screenshots
+
+### Technical Support Checklist
+- MetaTrader version
+- Broker name and account type
+- EA version and parameters used
+- Error messages or unexpected behavior
+- Chart timeframe and symbol
+- Operating system details
 
 ---
 
-## ⚠️ Risk Disclaimer
+## ⚠️ Important Disclaimers
 
-Trading foreign exchange and CFDs involves significant risk and may not be suitable for all investors. Past performance does not guarantee future results. Only trade with money you can afford to lose. This EA is a tool to assist in trading decisions but does not guarantee profits.
+1. **Past performance does not guarantee future results**
+2. **Trading carries significant risk of loss**
+3. **Only trade with money you can afford to lose**
+4. **Always test thoroughly on demo before live trading**
+5. **Market conditions can change rapidly**
+6. **This EA is a tool, not a guarantee of profit**
+
+## 🎯 Success Tips
+
+1. **Be Patient**: Allow time for results to develop
+2. **Stay Disciplined**: Don't override EA decisions
+3. **Monitor Regularly**: Check performance weekly
+4. **Keep Learning**: Understand market conditions
+5. **Risk Management**: Never risk more than planned
+6. **Backup Everything**: Save configurations and logs
 
 ---
 
-## 📈 Expected Performance
+**Version**: 2.50  
+**Last Updated**: 2024  
+**Compatibility**: MetaTrader 4 Build 1090+
 
-**Conservative Settings:**
-- Expected monthly return: 5-15%
-- Maximum drawdown: 10-15%
-- Win rate: 60-70%
-
-**Aggressive Settings:**
-- Expected monthly return: 15-30%
-- Maximum drawdown: 15-25%
-- Win rate: 55-65%
-
-Remember: Higher returns come with higher risks. Always trade responsibly and within your risk tolerance.
+*Good luck with your automated trading journey!* 🚀
