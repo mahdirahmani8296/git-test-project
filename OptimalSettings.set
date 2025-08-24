@@ -1,0 +1,46 @@
+; Advanced Trading EA - Optimal Settings Configuration
+; نسخه بهینه شده برای سودآوری بالا
+; قابل استفاده در حساب‌های واقعی
+
+InpUseStrategy=true
+InpMagicNumber=123456
+InpTradeComment=AdvancedEA_v1.0
+
+; === تنظیمات مدیریت ریسک ===
+InpRiskPercent=2.0
+InpMaxSpread=25.0
+InpMaxPositions=2
+InpMaxDailyLoss=4.0
+
+; === تنظیمات Stop Loss و Take Profit ===
+InpUseDynamicSL=true
+InpUseDynamicTP=true
+InpStaticSL=80.0
+InpStaticTP=160.0
+InpTrailStart=120.0
+InpTrailStep=40.0
+
+; === تنظیمات اندیکاتورهای تکنیکال ===
+InpRSIPeriod=14
+InpRSILevel=70
+InpMACDFast=12
+InpMACDSlow=26
+InpMACDSignal=9
+InpBBPeriod=20
+InpBBDeviation=2.0
+InpADXPeriod=14
+InpADXLevel=25.0
+InpATRPeriod=14
+InpEMA1Period=21
+InpEMA2Period=50
+InpEMA3Period=200
+
+; === فیلتر زمانی ===
+InpUseTimeFilter=true
+InpStartHour=9
+InpEndHour=19
+InpTradeMonday=true
+InpTradeTuesday=true
+InpTradeWednesday=true
+InpTradeThursday=true
+InpTradeFriday=true
