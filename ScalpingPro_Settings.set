@@ -1,0 +1,38 @@
+; ScalpingPro EA - Optimized Settings File
+; Copy this file to: Terminal\MQL5\Profiles\Templates\
+
+; Trading Settings
+InpLotSize=0.01
+InpMagicNumber=123456
+InpRiskPercent=1.0
+InpMaxSpread=30
+InpUseAutoLot=true
+
+; Scalping Parameters  
+InpScalpingPeriod=5
+InpMinProfit=5.0
+InpMaxProfit=15.0
+InpMaxPositions=3
+InpCooldownMinutes=2
+
+; Risk Management
+InpInitialStopLoss=20.0
+InpInitialTakeProfit=10.0
+InpUseTrailingStop=true
+InpTrailingDistance=8.0
+InpBreakevenTrigger=8.0
+
+; Time Filter
+InpUseTimeFilter=true
+InpStartHour=8
+InpEndHour=22
+
+; Symbol Settings
+InpTradeGold=true
+InpTradeEURUSD=true
+InpTradeGBPUSD=true
+InpTradeUSDJPY=true
+InpTradeUSDCHF=true
+InpTradeAUDUSD=true
+InpTradeUSDCAD=true
+InpTradeNZDUSD=true
